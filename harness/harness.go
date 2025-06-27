@@ -19,6 +19,12 @@ func init() {
 	testRegistry["6.1/2"] = cases.RunTest6_1_2
 	testRegistry["6.1/3"] = cases.RunTest6_1_3
 
+	// 6.2 HEADERS
+	testRegistry["6.2/1"] = cases.RunTest6_2_1
+	testRegistry["6.2/2"] = cases.RunTest6_2_2
+	testRegistry["6.2/3"] = cases.RunTest6_2_3
+	testRegistry["6.2/4"] = cases.RunTest6_2_4
+
 	// 6.5 SETTINGS
 	testRegistry["6.5/1"] = cases.RunTest6_5_1
 	testRegistry["6.5/2"] = cases.RunTest6_5_2
