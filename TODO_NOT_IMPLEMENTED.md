@@ -103,3 +103,48 @@ This file lists `h2spec` test cases that have not been implemented in the Go tes
 
 - [ ] **generic/4/4: Sends a POST request with trailers**
   - **Reason:** This test requires the client to send a `POST` request with trailers. `curl` can be configured to do this, but it is not the default and would require more complex test setup.
+
+- [ ] **generic/5/1: Sends a indexed header field representation**
+  - **Reason:** This test requires the client to correctly handle a specific HPACK representation. `curl` does not provide a way to verify that the HPACK representation was correctly handled.
+
+- [ ] **generic/5/2: Sends a literal header field with incremental indexing - indexed name**
+  - **Reason:** This test requires the client to correctly handle a specific HPACK representation. `curl` does not provide a way to verify that the HPACK representation was correctly handled.
+
+- [ ] **generic/5/3: Sends a literal header field with incremental indexing - indexed name (with Huffman coding)**
+  - **Reason:** This test requires the client to correctly handle a specific HPACK representation. `curl` does not provide a way to verify that the HPACK representation was correctly handled.
+
+- [ ] **generic/5/4: Sends a literal header field with incremental indexing - new name**
+  - **Reason:** This test requires the client to correctly handle a specific HPACK representation. `curl` does not provide a way to verify that the HPACK representation was correctly handled.
+
+- [ ] **generic/5/5: Sends a literal header field with incremental indexing - new name (with Huffman coding)**
+  - **Reason:** This test requires the client to correctly handle a specific HPACK representation. `curl` does not provide a way to verify that the HPACK representation was correctly handled.
+
+- [ ] **generic/5/6: Sends a literal header field without indexing - indexed name**
+  - **Reason:** This test requires the client to correctly handle a specific HPACK representation. `curl` does not provide a way to verify that the HPACK representation was correctly handled.
+
+- [ ] **generic/5/7: Sends a literal header field without indexing - indexed name (with Huffman coding)**
+  - **Reason:** This test requires the client to correctly handle a specific HPACK representation. `curl` does not provide a way to verify that the HPACK representation was correctly handled.
+
+- [ ] **generic/5/8: Sends a literal header field without indexing - new name**
+  - **Reason:** This test requires the client to correctly handle a specific HPACK representation. `curl` does not provide a way to verify that the HPACK representation was correctly handled.
+
+- [ ] **generic/5/9: Sends a literal header field without indexing - new name (huffman encoded)**
+  - **Reason:** This test requires the client to correctly handle a specific HPACK representation. `curl` does not provide a way to verify that the HPACK representation was correctly handled.
+
+- [ ] **generic/5/10: Sends a literal header field never indexed - indexed name**
+  - **Reason:** This test requires the client to correctly handle a specific HPACK representation. `curl` does not provide a way to verify that the HPACK representation was correctly handled.
+
+- [ ] **generic/5/11: Sends a literal header field never indexed - indexed name (huffman encoded)**
+  - **Reason:** This test requires the client to correctly handle a specific HPACK representation. `curl` does not provide a way to verify that the HPACK representation was correctly handled.
+
+- [ ] **generic/5/12: Sends a literal header field never indexed - new name**
+  - **Reason:** This test requires the client to correctly handle a specific HPACK representation. `curl` does not provide a way to verify that the HPACK representation was correctly handled.
+
+- [ ] **generic/5/13: Sends a literal header field never indexed - new name (huffman encoded)**
+  - **Reason:** This test requires the client to correctly handle a specific HPACK representation. `curl` does not provide a way to verify that the HPACK representation was correctly handled.
+
+- [ ] **generic/5/14: Sends a dynamic table size update**
+  - **Reason:** This test requires the client to correctly handle a dynamic table size update. `curl` does not provide a way to verify that the dynamic table size update was correctly handled.
+
+- [ ] **generic/5/15: Sends multiple dynamic table size update**
+  - **Reason:** This test requires the client to correctly handle multiple dynamic table size updates. `curl` does not provide a way to verify that the dynamic table size updates were correctly handled.
