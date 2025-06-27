@@ -19,3 +19,6 @@ This file lists `h2spec` test cases that have not been implemented in the Go tes
 
 - [ ] **6.9.2/2: Sends a SETTINGS frame for window size to be negative**
   - **Reason:** This is a complex scenario that requires the client to send data, have its window become negative, and then correctly resume sending data after a `WINDOW_UPDATE`. This level of control and observation is not possible with `curl`.
+
+- [ ] **6.10/1: Sends multiple CONTINUATION frames preceded by a HEADERS frame**
+  - **Reason:** This test requires the client to successfully parse a fragmented header block. `curl` does not provide a direct way to verify that the headers were received and parsed correctly, only that the request as a whole succeeded or failed.

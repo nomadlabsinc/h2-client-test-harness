@@ -43,6 +43,13 @@ func init() {
 	testRegistry["6.9/2"] = cases.RunTest6_9_2
 	testRegistry["6.9/3"] = cases.RunTest6_9_3
 	testRegistry["6.9.2/3"] = cases.RunTest6_9_2_3
+
+	// 6.10 CONTINUATION
+	testRegistry["6.10/2"] = cases.RunTest6_10_2
+	testRegistry["6.10/3"] = cases.RunTest6_10_3
+	testRegistry["6.10/4"] = cases.RunTest6_10_4
+	testRegistry["6.10/5"] = cases.RunTest6_10_5
+	testRegistry["6.10/6"] = cases.RunTest6_10_6
 }
 
 func GetTest(id string) (TestFunc, bool) {
