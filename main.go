@@ -112,6 +112,8 @@ func handleConnection(conn net.Conn, testCase string) {
 		runTest6_5_3_2(conn, framer)
 	case "6.7/1":
 		runTest6_7_1(conn, framer)
+	case "6.7/2":
+		runTest6_7_2(conn, framer)
 	default:
 		log.Printf("Unknown or unimplemented test case: %s", testCase)
 	}
@@ -358,6 +360,51 @@ func runTest6_7_1(conn net.Conn, framer *http2.Framer) {
 				return
 			}
 			log.Println("Received PING ACK with correct data. Test complete.")
+			return // Success
+		default:
+			log.Printf("Ignoring frame of type %T while waiting for PING ACK.", f)
+		}
+	}
+}
+
+// Test Case 6.7/2: Sends a PING frame with ACK flag.
+// The client is expected to not respond to the PING ACK, but respond to a subsequent PING.
+func runTest6_7_2(conn net.Conn, framer *http2.Framer) {
+	log.Println("Running test case 6.7/2...")
+
+	// Send a PING with ACK, which the client should ignore.
+	if err := framer.WritePing(true, [8]byte{'i', 'g', 'n', 'o', 'r', 'e'}); err != nil {
+		log.Printf("Failed to write PING ACK frame: %v", err)
+		return
+	}
+	log.Println("Sent PING ACK, which should be ignored.")
+
+	// Send a normal PING, which the client should respond to.
+	pingData := [8]byte{'r', 'e', 's', 'p', 'o', 'n', 'd'}
+	if err := framer.WritePing(false, pingData); err != nil {
+		log.Printf("Failed to write subsequent PING frame: %v", err)
+		return
+	}
+	log.Println("Sent second PING frame, awaiting ACK.")
+
+	for {
+		frame, err := framer.ReadFrame()
+		if err != nil {
+			log.Printf("Failed to read frame while waiting for PING ACK: %v", err)
+			return
+		}
+
+		switch f := frame.(type) {
+		case *http2.PingFrame:
+			if !f.IsAck() {
+				log.Println("Received a PING frame, but it was not an ACK.")
+				return
+			}
+			if string(f.Data[:]) != string(pingData[:]) {
+				log.Printf("Received PING ACK, but data does not match expected for the second PING. Got %v", f.Data)
+				return
+			}
+			log.Println("Received PING ACK for the second PING. Test complete.")
 			return // Success
 		default:
 			log.Printf("Ignoring frame of type %T while waiting for PING ACK.", f)
