@@ -14,6 +14,20 @@ type TestFunc func(conn net.Conn, framer *http2.Framer)
 var testRegistry = make(map[string]TestFunc)
 
 func init() {
+	// 3.5 Connection Preface
+	testRegistry["3.5/1"] = cases.RunTest3_5_1
+	testRegistry["3.5/2"] = cases.RunTest3_5_2
+
+	// 4.1 Frame Format
+	testRegistry["4.1/1"] = cases.RunTest4_1_1
+	testRegistry["4.1/2"] = cases.RunTest4_1_2
+	testRegistry["4.1/3"] = cases.RunTest4_1_3
+
+	// 4.2 Frame Size
+	testRegistry["4.2/1"] = cases.RunTest4_2_1
+	testRegistry["4.2/2"] = cases.RunTest4_2_2
+	testRegistry["4.2/3"] = cases.RunTest4_2_3
+
 	// 6.1 DATA
 	testRegistry["6.1/1"] = cases.RunTest6_1_1
 	testRegistry["6.1/2"] = cases.RunTest6_1_2
