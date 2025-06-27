@@ -96,6 +96,8 @@ func handleConnection(conn net.Conn, testCase string) {
 		runTest6_5_1(conn, framer)
 	case "6.5/2":
 		runTest6_5_2(conn, framer)
+	case "6.5/3":
+		runTest6_5_3(conn, framer)
 	default:
 		log.Printf("Unknown or unimplemented test case: %s", testCase)
 	}
@@ -150,6 +152,31 @@ func runTest6_5_2(conn net.Conn, framer *http2.Framer) {
 	}
 
 	log.Println("Sent malformed SETTINGS frame with non-zero stream ID. Test complete.")
+}
+
+// Test Case 6.5/3: Sends a SETTINGS frame with a length other than a multiple of 6 octets.
+// The client is expected to detect a FRAME_SIZE_ERROR.
+func runTest6_5_3(conn net.Conn, framer *http2.Framer) {
+	log.Println("Running test case 6.5/3...")
+
+	// A valid SETTINGS frame's payload must be a multiple of 6 bytes long.
+	// We will send a SETTINGS frame with a 5-byte payload.
+	
+	// Frame Header: Length (5), Type (SETTINGS), Flags (0), StreamID (0)
+	malformedFrame := []byte{
+		0x00, 0x00, 0x05, // Length: 5
+		0x04,             // Type: SETTINGS (0x4)
+		0x00,             // Flags: 0
+		0x00, 0x00, 0x00, 0x00, // Stream ID: 0
+		0x01, 0x02, 0x03, 0x04, 0x05, // 5-byte payload
+	}
+
+	if _, err := conn.Write(malformedFrame); err != nil {
+		log.Printf("Failed to write malformed SETTINGS frame: %v", err)
+		return
+	}
+
+	log.Println("Sent malformed SETTINGS frame with invalid length. Test complete.")
 }
 
 // ensureCerts checks for cert.pem and key.pem and generates them if they don't exist.
