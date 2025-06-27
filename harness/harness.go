@@ -41,6 +41,7 @@ func init() {
 	// 6.9 WINDOW_UPDATE
 	testRegistry["6.9/1"] = cases.RunTest6_9_1
 	testRegistry["6.9/2"] = cases.RunTest6_9_2
+	testRegistry["6.9/3"] = cases.RunTest6_9_3
 }
 
 func GetTest(id string) (TestFunc, bool) {

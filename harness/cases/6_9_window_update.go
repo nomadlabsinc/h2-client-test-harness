@@ -52,3 +52,25 @@ func RunTest6_9_2(conn net.Conn, framer *http2.Framer) {
 
 	log.Println("Sent WINDOW_UPDATE with 0 increment on stream 1. Test complete.")
 }
+
+// Test Case 6.9/3: Sends a WINDOW_UPDATE frame with a length other than 4 octets.
+// The client is expected to detect a FRAME_SIZE_ERROR.
+func RunTest6_9_3(conn net.Conn, framer *http2.Framer) {
+	log.Println("Running test case 6.9/3...")
+
+	// Frame Header: Length (3), Type (WINDOW_UPDATE), Flags (0), StreamID (0)
+	malformedFrame := []byte{
+		0x00, 0x00, 0x03, // Length: 3
+		0x08,             // Type: WINDOW_UPDATE (0x8)
+		0x00,             // Flags: 0
+		0x00, 0x00, 0x00, 0x00, // Stream ID: 0
+		0x00, 0x00, 0x01, // Payload
+	}
+
+	if _, err := conn.Write(malformedFrame); err != nil {
+		log.Printf("Failed to write malformed WINDOW_UPDATE frame: %v", err)
+		return
+	}
+
+	log.Println("Sent malformed WINDOW_UPDATE frame with invalid length. Test complete.")
+}
