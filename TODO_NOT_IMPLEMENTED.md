@@ -52,3 +52,9 @@ This file lists `h2spec` test cases that have not been implemented in the Go tes
 
 - [ ] **generic/3.1/3: Sends a DATA frame with padding**
   - **Reason:** This test requires the client to send a request with a body. `curl` with a simple `GET` request does not send a `DATA` frame, so this behavior cannot be triggered and verified.
+
+- [ ] **generic/3.2/2: Sends a HEADERS frame with padding**
+  - **Reason:** This test requires the client to correctly handle a `HEADERS` frame with padding. `curl` does not provide a way to verify that the padding was correctly handled.
+
+- [ ] **generic/3.2/3: Sends a HEADERS frame with priority**
+  - **Reason:** This test requires the client to correctly handle a `HEADERS` frame with priority information. `curl` does not provide a way to verify that the priority information was correctly handled.
