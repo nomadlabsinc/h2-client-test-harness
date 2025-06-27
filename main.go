@@ -94,6 +94,8 @@ func handleConnection(conn net.Conn, testCase string) {
 	switch testCase {
 	case "6.5/1":
 		runTest6_5_1(conn, framer)
+	case "6.5/2":
+		runTest6_5_2(conn, framer)
 	default:
 		log.Printf("Unknown or unimplemented test case: %s", testCase)
 	}
@@ -124,6 +126,30 @@ func runTest6_5_1(conn net.Conn, framer *http2.Framer) {
 	}
 
 	log.Println("Sent malformed SETTINGS ACK frame. Test complete.")
+}
+
+// Test Case 6.5/2: Sends a SETTINGS frame with a stream identifier other than 0x0.
+// The client is expected to detect a PROTOCOL_ERROR.
+func runTest6_5_2(conn net.Conn, framer *http2.Framer) {
+	log.Println("Running test case 6.5/2...")
+
+	// A valid SETTINGS frame MUST have a stream identifier of 0.
+	// We will send an empty SETTINGS frame but set the stream ID to 1.
+	
+	// Frame Header: Length (0), Type (SETTINGS), Flags (0), StreamID (1)
+	malformedFrame := []byte{
+		0x00, 0x00, 0x00, // Length: 0
+		0x04,             // Type: SETTINGS (0x4)
+		0x00,             // Flags: 0
+		0x00, 0x00, 0x00, 0x01, // Stream ID: 1
+	}
+
+	if _, err := conn.Write(malformedFrame); err != nil {
+		log.Printf("Failed to write malformed SETTINGS frame: %v", err)
+		return
+	}
+
+	log.Println("Sent malformed SETTINGS frame with non-zero stream ID. Test complete.")
 }
 
 // ensureCerts checks for cert.pem and key.pem and generates them if they don't exist.
