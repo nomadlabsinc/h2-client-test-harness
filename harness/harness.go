@@ -82,6 +82,10 @@ func init() {
 
 	// 8.2 Server Push
 	testRegistry["8.2/1"] = cases.RunTest8_2_1
+
+	// HPACK
+	testRegistry["hpack/2.3.3/1"] = cases.RunTestHpack2_3_3_1
+	testRegistry["hpack/2.3.3/2"] = cases.RunTestHpack2_3_3_2
 }
 
 func GetTest(id string) (TestFunc, bool) {
