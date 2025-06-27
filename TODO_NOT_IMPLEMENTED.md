@@ -76,3 +76,6 @@ This file lists `h2spec` test cases that have not been implemented in the Go tes
 
 - [ ] **generic/3.4/1: Sends a RST_STREAM frame**
   - **Reason:** This test has ambiguous success conditions (either a PING ACK or a closed connection) that are difficult to distinguish from a crash or other incorrect behavior with a simple client like `curl`.
+
+- [ ] **generic/3.8/1: Sends a GOAWAY frame**
+  - **Reason:** This test has ambiguous success conditions (either a PING ACK or a closed connection) that are difficult to distinguish from a crash or other incorrect behavior with a simple client like `curl`.
