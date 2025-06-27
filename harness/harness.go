@@ -79,6 +79,9 @@ func init() {
 	// 8.1.2.6 Malformed Requests and Responses
 	testRegistry["8.1.2.6/1"] = cases.RunTest8_1_2_6_1
 	testRegistry["8.1.2.6/2"] = cases.RunTest8_1_2_6_2
+
+	// 8.2 Server Push
+	testRegistry["8.2/1"] = cases.RunTest8_2_1
 }
 
 func GetTest(id string) (TestFunc, bool) {
