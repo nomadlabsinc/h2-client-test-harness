@@ -79,3 +79,9 @@ This file lists `h2spec` test cases that have not been implemented in the Go tes
 
 - [ ] **generic/3.8/1: Sends a GOAWAY frame**
   - **Reason:** This test has ambiguous success conditions (either a PING ACK or a closed connection) that are difficult to distinguish from a crash or other incorrect behavior with a simple client like `curl`.
+
+- [ ] **generic/3.9/1: Sends a WINDOW_UPDATE frame with stream ID 0**
+  - **Reason:** This test requires the client to correctly handle a `WINDOW_UPDATE` frame for the connection. `curl` does not provide a way to verify that the `WINDOW_UPDATE` was received and processed correctly.
+
+- [ ] **generic/3.9/2: Sends a WINDOW_UPDATE frame with stream ID 1**
+  - **Reason:** This test requires the client to correctly handle a `WINDOW_UPDATE` frame for a stream. `curl` does not provide a way to verify that the `WINDOW_UPDATE` was received and processed correctly.
