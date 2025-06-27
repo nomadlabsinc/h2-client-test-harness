@@ -35,6 +35,25 @@ func init() {
 	testRegistry["generic/4/1"] = cases.RunTestGeneric4_1
 	testRegistry["generic/4/2"] = cases.RunTestGeneric4_2
 
+	// Additional tests for 100% coverage
+	testRegistry["generic/1/1"] = cases.RunTestGeneric1_1
+	testRegistry["generic/2/1"] = cases.RunTestGeneric2_1
+	testRegistry["generic/5/1"] = cases.RunTestGeneric5_1
+	testRegistry["generic/misc/1"] = cases.RunTestGenericMisc1
+	testRegistry["hpack/misc/1"] = cases.RunTestHpackMisc1
+	testRegistry["http2/5.5/1"] = cases.RunTestHttp2_5_5_1
+	testRegistry["http2/7/1"] = cases.RunTestHttp2_7_1
+	testRegistry["http2/4.3/1"] = cases.RunTestHttp2_4_3_1
+	testRegistry["http2/8.1.2.4/1"] = cases.RunTestHttp2_8_1_2_4_1
+	testRegistry["http2/8.1.2.5/1"] = cases.RunTestHttp2_8_1_2_5_1
+	testRegistry["extra/1"] = cases.RunTestExtra1
+	testRegistry["extra/2"] = cases.RunTestExtra2
+	testRegistry["extra/3"] = cases.RunTestExtra3
+	testRegistry["extra/4"] = cases.RunTestExtra4
+	testRegistry["extra/5"] = cases.RunTestExtra5
+	testRegistry["final/1"] = cases.RunTestFinal1
+	testRegistry["final/2"] = cases.RunTestFinal2
+
 	// 3.5 Connection Preface
 	testRegistry["3.5/1"] = cases.RunTest3_5_1
 	testRegistry["3.5/2"] = cases.RunTest3_5_2
