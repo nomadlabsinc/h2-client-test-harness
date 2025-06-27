@@ -98,6 +98,8 @@ func handleConnection(conn net.Conn, testCase string) {
 		runTest6_5_2(conn, framer)
 	case "6.5/3":
 		runTest6_5_3(conn, framer)
+	case "6.5.2/1":
+		runTest6_5_2_1(conn, framer)
 	default:
 		log.Printf("Unknown or unimplemented test case: %s", testCase)
 	}
@@ -177,6 +179,19 @@ func runTest6_5_3(conn net.Conn, framer *http2.Framer) {
 	}
 
 	log.Println("Sent malformed SETTINGS frame with invalid length. Test complete.")
+}
+
+// Test Case 6.5.2/1: Sends SETTINGS_ENABLE_PUSH with a value other than 0 or 1.
+// The client is expected to detect a PROTOCOL_ERROR.
+func runTest6_5_2_1(conn net.Conn, framer *http2.Framer) {
+	log.Println("Running test case 6.5.2/1...")
+
+	if err := framer.WriteSettings(http2.Setting{ID: http2.SettingEnablePush, Val: 2}); err != nil {
+		log.Printf("Failed to write SETTINGS frame: %v", err)
+		return
+	}
+
+	log.Println("Sent SETTINGS_ENABLE_PUSH with invalid value. Test complete.")
 }
 
 // ensureCerts checks for cert.pem and key.pem and generates them if they don't exist.
