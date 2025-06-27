@@ -43,3 +43,12 @@ This file lists `h2spec` test cases that have not been implemented in the Go tes
 
 - [ ] **generic/2/5: Sends a PRIORITY frame on closed stream**
   - **Reason:** This test requires the client to have a closed stream, and then correctly handle a `PRIORITY` frame on that stream. This is not easily verifiable with `curl`.
+
+- [ ] **generic/3.1/1: Sends a DATA frame**
+  - **Reason:** This test requires the client to send a request with a body. `curl` with a simple `GET` request does not send a `DATA` frame, so this behavior cannot be triggered and verified.
+
+- [ ] **generic/3.1/2: Sends multiple DATA frames**
+  - **Reason:** This test requires the client to send a request with a body. `curl` with a simple `GET` request does not send a `DATA` frame, so this behavior cannot be triggered and verified.
+
+- [ ] **generic/3.1/3: Sends a DATA frame with padding**
+  - **Reason:** This test requires the client to send a request with a body. `curl` with a simple `GET` request does not send a `DATA` frame, so this behavior cannot be triggered and verified.
