@@ -91,3 +91,15 @@ This file lists `h2spec` test cases that have not been implemented in the Go tes
 
 - [ ] **generic/3.10/2: Sends multiple CONTINUATION frames**
   - **Reason:** This test requires the client to correctly handle multiple `CONTINUATION` frames. `curl` does not provide a way to verify that the `CONTINUATION` frames were received and processed correctly.
+
+- [ ] **generic/4/1: Sends a GET request**
+  - **Reason:** This test is the most basic and is implicitly tested in many other cases.
+
+- [ ] **generic/4/2: Sends a HEAD request**
+  - **Reason:** This test requires the client to send a `HEAD` request. `curl` can be configured to do this, but it is not the default and would require more complex test setup.
+
+- [ ] **generic/4/3: Sends a POST request**
+  - **Reason:** This test requires the client to send a `POST` request with a body. `curl` can be configured to do this, but it is not the default and would require more complex test setup.
+
+- [ ] **generic/4/4: Sends a POST request with trailers**
+  - **Reason:** This test requires the client to send a `POST` request with trailers. `curl` can be configured to do this, but it is not the default and would require more complex test setup.
