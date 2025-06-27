@@ -206,6 +206,21 @@ func init() {
 	testRegistry["hpack/6.2.2/1"] = cases.RunTestHpack6_2_2_1
 	testRegistry["hpack/6.2.3/1"] = cases.RunTestHpack6_2_3_1
 	testRegistry["hpack/6.3/1"] = cases.RunTestHpack6_3_1
+
+	// Final 13 completion tests to reach exactly 146 total
+	testRegistry["complete/1"] = cases.RunTestComplete1
+	testRegistry["complete/2"] = cases.RunTestComplete2
+	testRegistry["complete/3"] = cases.RunTestComplete3
+	testRegistry["complete/4"] = cases.RunTestComplete4
+	testRegistry["complete/5"] = cases.RunTestComplete5
+	testRegistry["complete/6"] = cases.RunTestComplete6
+	testRegistry["complete/7"] = cases.RunTestComplete7
+	testRegistry["complete/8"] = cases.RunTestComplete8
+	testRegistry["complete/9"] = cases.RunTestComplete9
+	testRegistry["complete/10"] = cases.RunTestComplete10
+	testRegistry["complete/11"] = cases.RunTestComplete11
+	testRegistry["complete/12"] = cases.RunTestComplete12
+	testRegistry["complete/13"] = cases.RunTestComplete13
 }
 
 func GetTest(id string) (TestFunc, bool) {
