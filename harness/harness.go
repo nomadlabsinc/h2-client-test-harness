@@ -21,6 +21,19 @@ func init() {
 	testRegistry["generic/3.2/1"] = cases.RunTestGeneric3_2_1
 	testRegistry["generic/3.2/2"] = cases.RunTestGeneric3_2_2
 	testRegistry["generic/3.2/3"] = cases.RunTestGeneric3_2_3
+	testRegistry["generic/3.3/1"] = cases.RunTestGeneric3_3_1
+	testRegistry["generic/3.3/2"] = cases.RunTestGeneric3_3_2
+	testRegistry["generic/3.3/3"] = cases.RunTestGeneric3_3_3
+	testRegistry["generic/3.3/4"] = cases.RunTestGeneric3_3_4
+	testRegistry["generic/3.3/5"] = cases.RunTestGeneric3_3_5
+	testRegistry["generic/3.4/1"] = cases.RunTestGeneric3_4_1
+	testRegistry["generic/3.5/1"] = cases.RunTestGeneric3_5_1
+	testRegistry["generic/3.7/1"] = cases.RunTestGeneric3_7_1
+	testRegistry["generic/3.8/1"] = cases.RunTestGeneric3_8_1
+	testRegistry["generic/3.9/1"] = cases.RunTestGeneric3_9_1
+	testRegistry["generic/3.10/1"] = cases.RunTestGeneric3_10_1
+	testRegistry["generic/4/1"] = cases.RunTestGeneric4_1
+	testRegistry["generic/4/2"] = cases.RunTestGeneric4_2
 
 	// 3.5 Connection Preface
 	testRegistry["3.5/1"] = cases.RunTest3_5_1
@@ -161,13 +174,18 @@ func init() {
 	testRegistry["8.2/1"] = cases.RunTest8_2_1
 
 	// HPACK
+	testRegistry["hpack/2.3/1"] = cases.RunTestHpack2_3_1
 	testRegistry["hpack/2.3.3/1"] = cases.RunTestHpack2_3_3_1
 	testRegistry["hpack/2.3.3/2"] = cases.RunTestHpack2_3_3_2
+	testRegistry["hpack/4.1/1"] = cases.RunTestHpack4_1_1
 	testRegistry["hpack/4.2/1"] = cases.RunTestHpack4_2_1
 	testRegistry["hpack/5.2/1"] = cases.RunTestHpack5_2_1
 	testRegistry["hpack/5.2/2"] = cases.RunTestHpack5_2_2
 	testRegistry["hpack/5.2/3"] = cases.RunTestHpack5_2_3
 	testRegistry["hpack/6.1/1"] = cases.RunTestHpack6_1_1
+	testRegistry["hpack/6.2/1"] = cases.RunTestHpack6_2_1
+	testRegistry["hpack/6.2.2/1"] = cases.RunTestHpack6_2_2_1
+	testRegistry["hpack/6.2.3/1"] = cases.RunTestHpack6_2_3_1
 	testRegistry["hpack/6.3/1"] = cases.RunTestHpack6_3_1
 }
 
