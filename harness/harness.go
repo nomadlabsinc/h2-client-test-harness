@@ -29,6 +29,11 @@ func init() {
 	testRegistry["6.3/1"] = cases.RunTest6_3_1
 	testRegistry["6.3/2"] = cases.RunTest6_3_2
 
+	// 6.4 RST_STREAM
+	testRegistry["6.4/1"] = cases.RunTest6_4_1
+	testRegistry["6.4/2"] = cases.RunTest6_4_2
+	testRegistry["6.4/3"] = cases.RunTest6_4_3
+
 	// 6.5 SETTINGS
 	testRegistry["6.5/1"] = cases.RunTest6_5_1
 	testRegistry["6.5/2"] = cases.RunTest6_5_2
