@@ -85,3 +85,9 @@ This file lists `h2spec` test cases that have not been implemented in the Go tes
 
 - [ ] **generic/3.9/2: Sends a WINDOW_UPDATE frame with stream ID 1**
   - **Reason:** This test requires the client to correctly handle a `WINDOW_UPDATE` frame for a stream. `curl` does not provide a way to verify that the `WINDOW_UPDATE` was received and processed correctly.
+
+- [ ] **generic/3.10/1: Sends a CONTINUATION frame**
+  - **Reason:** This test requires the client to correctly handle a `CONTINUATION` frame. `curl` does not provide a way to verify that the `CONTINUATION` frame was received and processed correctly.
+
+- [ ] **generic/3.10/2: Sends multiple CONTINUATION frames**
+  - **Reason:** This test requires the client to correctly handle multiple `CONTINUATION` frames. `curl` does not provide a way to verify that the `CONTINUATION` frames were received and processed correctly.
