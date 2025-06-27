@@ -28,6 +28,21 @@ func init() {
 	testRegistry["4.2/2"] = cases.RunTest4_2_2
 	testRegistry["4.2/3"] = cases.RunTest4_2_3
 
+	// 5.1 Stream States
+	testRegistry["5.1/1"] = cases.RunTest5_1_1
+	testRegistry["5.1/2"] = cases.RunTest5_1_2
+	testRegistry["5.1/3"] = cases.RunTest5_1_3
+	testRegistry["5.1/4"] = cases.RunTest5_1_4
+	testRegistry["5.1/5"] = cases.RunTest5_1_5
+	testRegistry["5.1/6"] = cases.RunTest5_1_6
+	testRegistry["5.1/7"] = cases.RunTest5_1_7
+	testRegistry["5.1/8"] = cases.RunTest5_1_8
+	testRegistry["5.1/9"] = cases.RunTest5_1_9
+	testRegistry["5.1/10"] = cases.RunTest5_1_10
+	testRegistry["5.1/11"] = cases.RunTest5_1_11
+	testRegistry["5.1/12"] = cases.RunTest5_1_12
+	testRegistry["5.1/13"] = cases.RunTest5_1_13
+
 	// 6.1 DATA
 	testRegistry["6.1/1"] = cases.RunTest6_1_1
 	testRegistry["6.1/2"] = cases.RunTest6_1_2
