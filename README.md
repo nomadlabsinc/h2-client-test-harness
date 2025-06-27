@@ -123,70 +123,32 @@ docker run --rm -p 8080:8080 h2-test-harness --harness-only --test=6.5/1
 - `--verify-all`: Execute complete test suite (all 146 tests) with pass/fail summary
 - `--harness-only --test=<id>`: Run harness server only for external client testing
 
-## Implemented Test Cases
+## Test Coverage
 
-This harness implements **146 comprehensive H2SPEC test cases** covering 100% of HTTP/2 protocol compliance scenarios from RFC 7540 and RFC 7541.
+This harness implements **146 comprehensive H2SPEC test cases** covering 100% of HTTP/2 protocol compliance scenarios from RFC 7540 (HTTP/2) and RFC 7541 (HPACK).
 
-### Complete Test Coverage
+### 📋 Complete Test Documentation
 
-The test harness covers all major HTTP/2 protocol areas:
+For a comprehensive breakdown of all test cases, expected outcomes, and RFC coverage:
 
-- **Connection Management** (3.5): Connection preface and establishment
-- **Frame Format & Size** (4.1, 4.2): Frame structure and size validation  
-- **Stream Management** (5.1, 5.1.1, 5.1.2): Stream states, identifiers, and concurrency
-- **Stream Dependencies** (5.3.1): Priority and dependency handling
-- **Error Handling** (5.4.1): Connection and stream error scenarios
-- **Frame Types** (6.1-6.10): All HTTP/2 frame types (DATA, HEADERS, PRIORITY, RST_STREAM, SETTINGS, PING, GOAWAY, WINDOW_UPDATE, CONTINUATION)
-- **Flow Control** (6.9.1): Window management and flow control compliance
-- **HTTP Semantics** (8.1, 8.2): Request/response exchange and server push
-- **HPACK Compression** (RFC 7541): Header compression and decompression compliance
+**[📖 View Complete RFC Test Cases Documentation](./docs/RFC_TEST_CASES.md)**
 
-### Test Categories Summary
+### Quick Overview
 
-| Category | Test Count | Description |
-|----------|------------|-------------|
-| Connection Management | 6 | Preface validation and connection establishment |
-| Frame Format & Size | 6 | Frame structure and size limit compliance |
-| Stream States | 13 | Stream lifecycle and state transitions |
-| Frame Processing | 35+ | All HTTP/2 frame types and protocol violations |
-| HPACK Compression | 13 | Header compression compliance |
-| HTTP Semantics | 15+ | Request/response and header field validation |
-| Flow Control | 6 | Window updates and flow control |
-| Error Handling | 8 | Connection and stream error scenarios |
-| **Total** | **146** | **Complete H2SPEC Coverage** |
+| Category | Count | Coverage |
+|----------|-------|----------|
+| **HTTP/2 Protocol** (RFC 7540) | 118 | Connection, frames, streams, flow control, HTTP semantics |
+| **HPACK Compression** (RFC 7541) | 13 | Header compression and dynamic table management |
+| **Generic Protocol** | 15 | Cross-cutting protocol behavior validation |
+| **TOTAL** | **146** | **100% H2SPEC Coverage** |
 
 ### Available Test Cases
 
-To see all 146 available test cases, run:
+To see all 146 available test cases:
 ```bash
+# Local execution
 go run . --test=""
-```
 
-Or in Docker:
-```bash
+# Docker execution  
 docker run --rm h2-test-harness --list
 ```
-
-### Test Case Examples
-
-Some key test categories include:
-
-**Protocol Violations:**
-- `5.1/1`: DATA frame on idle stream (expects PROTOCOL_ERROR)
-- `6.5/2`: SETTINGS frame with non-zero stream ID (expects PROTOCOL_ERROR)
-- `5.1.1/1`: HEADERS frame with even stream ID (expects PROTOCOL_ERROR)
-
-**HPACK Compliance:**
-- `hpack/2.3.3/1`: Invalid index in header field representation
-- `hpack/4.2/1`: Maximum table size validation
-- `hpack/6.1/1`: Indexed header field processing
-
-**Frame Size & Format:**
-- `4.2/2`: Oversized DATA frame (expects FRAME_SIZE_ERROR)
-- `4.2/3`: Oversized HEADERS frame (expects FRAME_SIZE_ERROR)
-
-**Stream Management:**
-- `5.1/12`: HEADERS frame on closed stream (expects STREAM_CLOSED)
-- `5.3.1/1`: Self-dependency in stream priority (expects PROTOCOL_ERROR)
-
-For detailed test descriptions and expected behaviors, see the test case files in the `harness/cases/` directory.
