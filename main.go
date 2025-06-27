@@ -100,6 +100,8 @@ func handleConnection(conn net.Conn, testCase string) {
 		runTest6_5_3(conn, framer)
 	case "6.5.2/1":
 		runTest6_5_2_1(conn, framer)
+	case "6.5.2/2":
+		runTest6_5_2_2(conn, framer)
 	default:
 		log.Printf("Unknown or unimplemented test case: %s", testCase)
 	}
@@ -192,6 +194,19 @@ func runTest6_5_2_1(conn net.Conn, framer *http2.Framer) {
 	}
 
 	log.Println("Sent SETTINGS_ENABLE_PUSH with invalid value. Test complete.")
+}
+
+// Test Case 6.5.2/2: Sends SETTINGS_INITIAL_WINDOW_SIZE with a value > 2^31-1.
+// The client is expected to detect a FLOW_CONTROL_ERROR.
+func runTest6_5_2_2(conn net.Conn, framer *http2.Framer) {
+	log.Println("Running test case 6.5.2/2...")
+
+	if err := framer.WriteSettings(http2.Setting{ID: http2.SettingInitialWindowSize, Val: 2147483648}); err != nil {
+		log.Printf("Failed to write SETTINGS frame: %v", err)
+		return
+	}
+
+	log.Println("Sent SETTINGS_INITIAL_WINDOW_SIZE with invalid value. Test complete.")
 }
 
 // ensureCerts checks for cert.pem and key.pem and generates them if they don't exist.
