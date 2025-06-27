@@ -14,17 +14,17 @@ func init() {
 // Test Case 6.9.1/1: Sends SETTINGS frame to set the initial window size to 1 and sends HEADERS frame.
 // Expected: Client should respect flow control window and send appropriately sized DATA.
 func test6_9_1_1() error {
-	return verifier.expectSuccessfulRequest()
+	return verifier.ExpectSuccessfulRequest()
 }
 
 // Test Case 6.9.1/2: Sends multiple WINDOW_UPDATE frames increasing the flow control window to above 2^31-1.
 // Expected: Client should detect FLOW_CONTROL_ERROR and close connection.
 func test6_9_1_2() error {
-	return verifier.expectConnectionError("FLOW_CONTROL_ERROR", "window", "overflow")
+	return verifier.ExpectConnectionError("FLOW_CONTROL_ERROR", "window", "overflow")
 }
 
 // Test Case 6.9.1/3: Sends multiple WINDOW_UPDATE frames increasing the flow control window to above 2^31-1 on a stream.
 // Expected: Client should detect FLOW_CONTROL_ERROR on the stream.
 func test6_9_1_3() error {
-	return verifier.expectStreamError(http2.ErrCodeFlowControl)
+	return verifier.ExpectStreamError(http2.ErrCodeFlowControl)
 }

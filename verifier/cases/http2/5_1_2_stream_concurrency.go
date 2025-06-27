@@ -13,9 +13,9 @@ func init() {
 // Expected: Client should detect PROTOCOL_ERROR or REFUSED_STREAM.
 func test5_1_2_1() error {
 	// Try for REFUSED_STREAM first, fall back to PROTOCOL_ERROR
-	err := verifier.expectStreamError(http2.ErrCodeRefusedStream)
+	err := verifier.ExpectStreamError(http2.ErrCodeRefusedStream)
 	if err == nil {
 		return nil
 	}
-	return verifier.expectConnectionError("PROTOCOL_ERROR", "concurrent", "stream")
+	return verifier.ExpectConnectionError("PROTOCOL_ERROR", "concurrent", "stream")
 }

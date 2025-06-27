@@ -11,5 +11,5 @@ func init() {
 // Test Case generic/3.5/1: Sends a SETTINGS frame.
 // Expected: Client should accept SETTINGS frame successfully.
 func testGeneric3_5_1() error {
-	return verifier.expectSuccessfulRequest()
+	return verifier.ExpectSuccessfulRequest()
 }

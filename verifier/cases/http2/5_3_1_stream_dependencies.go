@@ -13,11 +13,11 @@ func init() {
 // Test Case 5.3.1/1: Sends HEADERS frame that depends on itself.
 // Expected: Client should detect PROTOCOL_ERROR.
 func test5_3_1_1() error {
-	return verifier.expectStreamError(http2.ErrCodeProtocol)
+	return verifier.ExpectStreamError(http2.ErrCodeProtocol)
 }
 
 // Test Case 5.3.1/2: Sends PRIORITY frame that depends on itself.
 // Expected: Client should detect PROTOCOL_ERROR.
 func test5_3_1_2() error {
-	return verifier.expectStreamError(http2.ErrCodeProtocol)
+	return verifier.ExpectStreamError(http2.ErrCodeProtocol)
 }

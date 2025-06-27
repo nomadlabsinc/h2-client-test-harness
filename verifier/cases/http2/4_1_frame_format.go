@@ -13,17 +13,17 @@ func init() {
 // Test Case 4.1/1: Sends a frame with unknown type.
 // Expected: Client should ignore unknown frame and respond to subsequent PING.
 func test4_1_1() error {
-	return verifier.expectSuccessfulRequest()
+	return verifier.ExpectSuccessfulRequest()
 }
 
 // Test Case 4.1/2: Sends a frame with undefined flag.
 // Expected: Client should ignore undefined flags and process frame normally.
 func test4_1_2() error {
-	return verifier.expectSuccessfulRequest()
+	return verifier.ExpectSuccessfulRequest()
 }
 
 // Test Case 4.1/3: Sends a frame with reserved field bit.
 // Expected: Client should ignore reserved bit and process frame normally.
 func test4_1_3() error {
-	return verifier.expectSuccessfulRequest()
+	return verifier.ExpectSuccessfulRequest()
 }

@@ -15,29 +15,29 @@ func init() {
 // Test Case generic/3.3/1: Sends a PRIORITY frame with priority 1.
 // Expected: Client should accept PRIORITY frame successfully.
 func testGeneric3_3_1() error {
-	return verifier.expectSuccessfulRequest()
+	return verifier.ExpectSuccessfulRequest()
 }
 
 // Test Case generic/3.3/2: Sends a PRIORITY frame with priority 256.
 // Expected: Client should accept PRIORITY frame successfully.
 func testGeneric3_3_2() error {
-	return verifier.expectSuccessfulRequest()
+	return verifier.ExpectSuccessfulRequest()
 }
 
 // Test Case generic/3.3/3: Sends a PRIORITY frame with stream dependency.
 // Expected: Client should accept PRIORITY frame successfully.
 func testGeneric3_3_3() error {
-	return verifier.expectSuccessfulRequest()
+	return verifier.ExpectSuccessfulRequest()
 }
 
 // Test Case generic/3.3/4: Sends a PRIORITY frame with exclusive.
 // Expected: Client should accept PRIORITY frame successfully.
 func testGeneric3_3_4() error {
-	return verifier.expectSuccessfulRequest()
+	return verifier.ExpectSuccessfulRequest()
 }
 
 // Test Case generic/3.3/5: Sends a PRIORITY frame for an idle stream, then send a HEADERS frame.
 // Expected: Client should respond to HEADERS frame successfully.
 func testGeneric3_3_5() error {
-	return verifier.expectSuccessfulRequest()
+	return verifier.ExpectSuccessfulRequest()
 }

@@ -12,11 +12,11 @@ func init() {
 // Test Case 5.4.1/1: Sends an invalid PING frame for connection close.
 // Expected: Client should close the TCP connection.
 func test5_4_1_1() error {
-	return verifier.expectConnectionError("FRAME_SIZE_ERROR", "ping", "length")
+	return verifier.ExpectConnectionError("FRAME_SIZE_ERROR", "ping", "length")
 }
 
 // Test Case 5.4.1/2: Sends an invalid PING frame to receive GOAWAY frame.
 // Expected: Client should send GOAWAY frame.
 func test5_4_1_2() error {
-	return verifier.expectConnectionError("PROTOCOL_ERROR", "ping", "stream")
+	return verifier.ExpectConnectionError("PROTOCOL_ERROR", "ping", "stream")
 }

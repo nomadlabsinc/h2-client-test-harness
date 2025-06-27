@@ -13,11 +13,11 @@ func init() {
 // Test Case 6.3/1: Sends a PRIORITY frame with 0x0 stream identifier.
 // Expected: Client should detect PROTOCOL_ERROR and close connection.
 func test6_3_1() error {
-	return verifier.expectConnectionError("PROTOCOL_ERROR", "stream", "identifier")
+	return verifier.ExpectConnectionError("PROTOCOL_ERROR", "stream", "identifier")
 }
 
 // Test Case 6.3/2: Sends a PRIORITY frame with a length other than 5 octets.
 // Expected: Client should detect FRAME_SIZE_ERROR.
 func test6_3_2() error {
-	return verifier.expectStreamError(http2.ErrCodeFrameSize)
+	return verifier.ExpectStreamError(http2.ErrCodeFrameSize)
 }

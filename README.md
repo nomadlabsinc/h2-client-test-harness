@@ -35,6 +35,64 @@ To verify that the harness is working correctly, you can run it against the incl
     ```
     If the verifier exits with a `status 0`, the harness is correctly implementing the test case.
 
+## Using the Harness for HTTP/2 Client Development
+
+This harness can be used to test HTTP/2 clients in any language. The harness acts as a malicious/non-compliant server that sends specific frames to test client compliance.
+
+### Crystal HTTP/2 Client Example
+
+To test a Crystal HTTP/2 client implementation:
+
+1. **Start the test harness server:**
+   ```bash
+   go run . --test=6.5/1
+   ```
+
+2. **Create a Crystal test client** (`test_client.cr`):
+   ```crystal
+   require "http/client"
+   require "openssl"
+   
+   # Configure SSL context to accept self-signed certificates
+   context = OpenSSL::SSL::Context::Client.new
+   context.verify_mode = OpenSSL::SSL::VerifyMode::NONE
+   
+   # Create HTTP/2 client
+   client = HTTP::Client.new("localhost", 8080, tls: context)
+   client.before_request { |req| req.headers["Connection"] = "Upgrade, HTTP2-Settings" }
+   
+   begin
+     response = client.get("/")
+     puts "Response: #{response.status_code}"
+   rescue ex
+     puts "Error (expected): #{ex.message}"
+     exit 1 if ex.message.includes?("FRAME_SIZE_ERROR")
+   end
+   ```
+
+3. **Run the Crystal client:**
+   ```bash
+   crystal run test_client.cr
+   ```
+
+4. **Verify expected behavior:**
+   - For protocol error tests (like `6.5/1`): Client should detect the error and close the connection
+   - For compliance tests: Client should handle the frame correctly and maintain the connection
+   - Exit codes: 0 = test passed, 1 = test failed
+
+### Test Categories
+
+- **Protocol Errors**: Tests expect the client to detect violations and close the connection with appropriate error codes
+- **Compliance Tests**: Tests verify the client handles valid but edge-case frames correctly
+- **HPACK Tests**: Tests verify header compression/decompression compliance
+
+### Available Test IDs
+
+Run the harness without arguments to see all available test cases:
+```bash
+go run . --test=""
+```
+
 ## Implemented Test Cases
 
 Below is a list of all implemented test cases.

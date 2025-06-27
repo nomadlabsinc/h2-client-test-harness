@@ -12,11 +12,11 @@ func init() {
 // Test Case 3.5/1: Sends client connection preface.
 // Expected: Client should establish connection successfully.
 func test3_5_1() error {
-	return verifier.expectSuccessfulRequest()
+	return verifier.ExpectSuccessfulRequest()
 }
 
 // Test Case 3.5/2: Sends invalid connection preface.
 // Expected: Client should detect protocol error and close connection.
 func test3_5_2() error {
-	return verifier.expectConnectionError("PROTOCOL_ERROR", "preface", "connection")
+	return verifier.ExpectConnectionError("PROTOCOL_ERROR", "preface", "connection")
 }

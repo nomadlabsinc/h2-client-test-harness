@@ -52,10 +52,10 @@ func newClient() *http.Client {
 	}
 }
 
-// expectConnectionError performs a GET request and checks if the resulting
+// ExpectConnectionError performs a GET request and checks if the resulting
 // error contains one of the expected error substrings. This is used for
 // tests that should cause a connection-level error.
-func expectConnectionError(expectedErrors ...string) error {
+func ExpectConnectionError(expectedErrors ...string) error {
 	client := newClient()
 	_, err := client.Get("https://localhost:8080")
 	if err == nil {
@@ -72,9 +72,9 @@ func expectConnectionError(expectedErrors ...string) error {
 	return fmt.Errorf("got an unexpected error: %v, expected one of: %v", err, expectedErrors)
 }
 
-// expectStreamError performs a GET request and checks if the resulting
+// ExpectStreamError performs a GET request and checks if the resulting
 // error is a stream error of the expected type.
-func expectStreamError(expectedCode http2.ErrCode) error {
+func ExpectStreamError(expectedCode http2.ErrCode) error {
 	client := newClient()
 	resp, err := client.Get("https://localhost:8080")
 	if err == nil {
@@ -97,10 +97,10 @@ func expectStreamError(expectedCode http2.ErrCode) error {
 	return fmt.Errorf("got an unexpected error type: %T, expected http2.StreamError", err)
 }
 
-// expectSuccessfulRequest performs a GET request and expects it to succeed.
+// ExpectSuccessfulRequest performs a GET request and expects it to succeed.
 // This is used for tests where the client should ignore the frame and keep
 // the connection open.
-func expectSuccessfulRequest() error {
+func ExpectSuccessfulRequest() error {
 	client := newClient()
 	resp, err := client.Get("https://localhost:8080")
 	if err != nil {

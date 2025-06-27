@@ -14,25 +14,25 @@ func init() {
 
 // Test Case generic/3.4/1: Sends a RST_STREAM frame.
 func testGeneric3_4_1() error {
-	return verifier.expectSuccessfulRequest()
+	return verifier.ExpectSuccessfulRequest()
 }
 
 // Test Case generic/3.9/1: Sends a WINDOW_UPDATE frame.
 func testGeneric3_9_1() error {
-	return verifier.expectSuccessfulRequest()
+	return verifier.ExpectSuccessfulRequest()
 }
 
 // Test Case generic/3.10/1: Sends a CONTINUATION frame.
 func testGeneric3_10_1() error {
-	return verifier.expectSuccessfulRequest()
+	return verifier.ExpectSuccessfulRequest()
 }
 
 // Test Case generic/4/1: Sends a GET request.
 func testGeneric4_1() error {
-	return verifier.expectSuccessfulRequest()
+	return verifier.ExpectSuccessfulRequest()
 }
 
 // Test Case generic/4/2: Sends a POST request.
 func testGeneric4_2() error {
-	return verifier.expectSuccessfulRequest()
+	return verifier.ExpectSuccessfulRequest()
 }

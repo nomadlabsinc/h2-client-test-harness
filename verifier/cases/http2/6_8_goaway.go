@@ -2,7 +2,6 @@ package http2
 
 import (
 	"github.com/nomadlabsinc/h2-client-test-harness/verifier"
-	"golang.org/x/net/http2"
 )
 
 func init() {

@@ -11,5 +11,5 @@ func init() {
 // Test Case generic/3.8/1: Sends a GOAWAY frame.
 // Expected: Client should accept GOAWAY frame successfully.
 func testGeneric3_8_1() error {
-	return verifier.expectSuccessfulRequest()
+	return verifier.ExpectSuccessfulRequest()
 }

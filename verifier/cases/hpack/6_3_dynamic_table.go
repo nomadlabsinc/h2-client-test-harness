@@ -11,5 +11,5 @@ func init() {
 // Test Case hpack/6.3/1: Sends a dynamic table size update larger than the value of SETTINGS_HEADER_TABLE_SIZE.
 // Expected: Client should detect COMPRESSION_ERROR and close connection.
 func testHpack6_3_1() error {
-	return verifier.expectConnectionError("COMPRESSION_ERROR", "table", "size")
+	return verifier.ExpectConnectionError("COMPRESSION_ERROR", "table", "size")
 }
