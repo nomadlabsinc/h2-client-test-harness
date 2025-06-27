@@ -110,6 +110,8 @@ func handleConnection(conn net.Conn, testCase string) {
 		runTest6_5_2_5(conn, framer)
 	case "6.5.3/2":
 		runTest6_5_3_2(conn, framer)
+	case "6.7/1":
+		runTest6_7_1(conn, framer)
 	default:
 		log.Printf("Unknown or unimplemented test case: %s", testCase)
 	}
@@ -322,6 +324,43 @@ func runTest6_5_3_2(conn net.Conn, framer *http2.Framer) {
 		default:
 			// Ignore other frames.
 			log.Printf("Ignoring frame of type %T while waiting for SETTINGS ACK.", f)
+		}
+	}
+}
+
+// Test Case 6.7/1: Sends a PING frame.
+// The client is expected to respond with a PING frame with the ACK flag.
+func runTest6_7_1(conn net.Conn, framer *http2.Framer) {
+	log.Println("Running test case 6.7/1...")
+
+	pingData := [8]byte{'h', '2', 's', 'p', 'e', 'c'}
+	if err := framer.WritePing(false, pingData); err != nil {
+		log.Printf("Failed to write PING frame: %v", err)
+		return
+	}
+	log.Println("Sent PING frame, awaiting ACK.")
+
+	for {
+		frame, err := framer.ReadFrame()
+		if err != nil {
+			log.Printf("Failed to read frame while waiting for PING ACK: %v", err)
+			return
+		}
+
+		switch f := frame.(type) {
+		case *http2.PingFrame:
+			if !f.IsAck() {
+				log.Println("Received a PING frame, but it was not an ACK.")
+				return
+			}
+			if string(f.Data[:]) != string(pingData[:]) {
+				log.Printf("Received PING ACK, but data does not match. Got %v", f.Data)
+				return
+			}
+			log.Println("Received PING ACK with correct data. Test complete.")
+			return // Success
+		default:
+			log.Printf("Ignoring frame of type %T while waiting for PING ACK.", f)
 		}
 	}
 }
