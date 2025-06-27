@@ -93,6 +93,11 @@ func init() {
 	testRegistry["6.9/3"] = cases.RunTest6_9_3
 	testRegistry["6.9.2/3"] = cases.RunTest6_9_2_3
 
+	// 6.9.1 Flow Control Window
+	testRegistry["6.9.1/1"] = cases.RunTest6_9_1_1
+	testRegistry["6.9.1/2"] = cases.RunTest6_9_1_2
+	testRegistry["6.9.1/3"] = cases.RunTest6_9_1_3
+
 	// 6.10 CONTINUATION
 	testRegistry["6.10/2"] = cases.RunTest6_10_2
 	testRegistry["6.10/3"] = cases.RunTest6_10_3
@@ -136,6 +141,10 @@ func init() {
 	testRegistry["hpack/2.3.3/1"] = cases.RunTestHpack2_3_3_1
 	testRegistry["hpack/2.3.3/2"] = cases.RunTestHpack2_3_3_2
 	testRegistry["hpack/4.2/1"] = cases.RunTestHpack4_2_1
+	testRegistry["hpack/5.2/1"] = cases.RunTestHpack5_2_1
+	testRegistry["hpack/5.2/2"] = cases.RunTestHpack5_2_2
+	testRegistry["hpack/5.2/3"] = cases.RunTestHpack5_2_3
+	testRegistry["hpack/6.1/1"] = cases.RunTestHpack6_1_1
 }
 
 func GetTest(id string) (TestFunc, bool) {
