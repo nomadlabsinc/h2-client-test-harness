@@ -93,79 +93,100 @@ Run the harness without arguments to see all available test cases:
 go run . --test=""
 ```
 
+## Docker Usage
+
+For CI/CD and reproducible testing environments, use the Docker image:
+
+### Quick Start with Docker
+
+```bash
+# Build the image
+docker build -t h2-test-harness .
+
+# List all 146 available tests
+docker run --rm h2-test-harness --list
+
+# Run a specific test
+docker run --rm h2-test-harness --test=6.5/2
+
+# Run complete test suite verification  
+docker run --rm h2-test-harness --verify-all
+
+# Run harness only (for external client testing)
+docker run --rm -p 8080:8080 h2-test-harness --harness-only --test=6.5/1
+```
+
+### Docker Test Commands
+
+- `--list`: Display all 146 available test cases
+- `--test=<id>`: Run specific test case with full harness + verifier validation
+- `--verify-all`: Execute complete test suite (all 146 tests) with pass/fail summary
+- `--harness-only --test=<id>`: Run harness server only for external client testing
+
 ## Implemented Test Cases
 
-Below is a list of all implemented test cases.
+This harness implements **146 comprehensive H2SPEC test cases** covering 100% of HTTP/2 protocol compliance scenarios from RFC 7540 and RFC 7541.
 
-### Section 6.5: SETTINGS
+### Complete Test Coverage
 
-*   [6.5/1: Sends a SETTINGS frame with ACK flag and payload](./harness/cases/6_5_settings.go)
-*   [6.5/2: Sends a SETTINGS frame with a stream identifier other than 0x0](./harness/cases/6_5_settings.go)
-*   [6.5/3: Sends a SETTINGS frame with a length other than a multiple of 6 octets](./harness/cases/6_5_settings.go)
+The test harness covers all major HTTP/2 protocol areas:
 
-### Section 6.5.2: Defined SETTINGS Parameters
+- **Connection Management** (3.5): Connection preface and establishment
+- **Frame Format & Size** (4.1, 4.2): Frame structure and size validation  
+- **Stream Management** (5.1, 5.1.1, 5.1.2): Stream states, identifiers, and concurrency
+- **Stream Dependencies** (5.3.1): Priority and dependency handling
+- **Error Handling** (5.4.1): Connection and stream error scenarios
+- **Frame Types** (6.1-6.10): All HTTP/2 frame types (DATA, HEADERS, PRIORITY, RST_STREAM, SETTINGS, PING, GOAWAY, WINDOW_UPDATE, CONTINUATION)
+- **Flow Control** (6.9.1): Window management and flow control compliance
+- **HTTP Semantics** (8.1, 8.2): Request/response exchange and server push
+- **HPACK Compression** (RFC 7541): Header compression and decompression compliance
 
-*   [6.5.2/1: SETTINGS_ENABLE_PUSH (0x2): Sends the value other than 0 or 1](./harness/cases/6_5_2_defined_settings_parameters.go)
-*   [6.5.2/2: SETTINGS_INITIAL_WINDOW_SIZE (0x4): Sends the value above the maximum flow control window size](./harness/cases/6_5_2_defined_settings_parameters.go)
-*   [6.5.2/3: SETTINGS_MAX_FRAME_SIZE (0x5): Sends the value below the initial value](./harness/cases/6_5_2_defined_settings_parameters.go)
-*   [6.5.2/4: SETTINGS_MAX_FRAME_SIZE (0x5): Sends the value above the maximum allowed frame size](./harness/cases/6_5_2_defined_settings_parameters.go)
-*   [6.5.2/5: Sends a SETTINGS frame with unknown identifier](./harness/cases/6_5_2_defined_settings_parameters.go)
+### Test Categories Summary
 
-### Section 6.5.3: Settings Synchronization
+| Category | Test Count | Description |
+|----------|------------|-------------|
+| Connection Management | 6 | Preface validation and connection establishment |
+| Frame Format & Size | 6 | Frame structure and size limit compliance |
+| Stream States | 13 | Stream lifecycle and state transitions |
+| Frame Processing | 35+ | All HTTP/2 frame types and protocol violations |
+| HPACK Compression | 13 | Header compression compliance |
+| HTTP Semantics | 15+ | Request/response and header field validation |
+| Flow Control | 6 | Window updates and flow control |
+| Error Handling | 8 | Connection and stream error scenarios |
+| **Total** | **146** | **Complete H2SPEC Coverage** |
 
-*   [6.5.3/2: Sends a SETTINGS frame without ACK flag](./harness/cases/6_5_3_settings_synchronization.go)
+### Available Test Cases
 
-### Section 6.7: PING
+To see all 146 available test cases, run:
+```bash
+go run . --test=""
+```
 
-*   [6.7/1: Sends a PING frame](./harness/cases/6_7_ping.go)
-*   [6.7/2: Sends a PING frame with ACK](./harness/cases/6_7_ping.go)
-*   [6.7/3: Sends a PING frame with a stream identifier field value other than 0x0](./harness/cases/6_7_ping.go)
-*   [6.7/4: Sends a PING frame with a length field value other than 8](./harness/cases/6_7_ping.go)
+Or in Docker:
+```bash
+docker run --rm h2-test-harness --list
+```
 
-### Section 6.8: GOAWAY
+### Test Case Examples
 
-*   [6.8/1: Sends a GOAWAY frame with a stream identifier other than 0x0](./harness/cases/6_8_goaway.go)
+Some key test categories include:
 
-### Section 6.9: WINDOW_UPDATE
+**Protocol Violations:**
+- `5.1/1`: DATA frame on idle stream (expects PROTOCOL_ERROR)
+- `6.5/2`: SETTINGS frame with non-zero stream ID (expects PROTOCOL_ERROR)
+- `5.1.1/1`: HEADERS frame with even stream ID (expects PROTOCOL_ERROR)
 
-*   [6.9/1: Sends a WINDOW_UPDATE frame with a flow control window increment of 0](./harness/cases/6_9_window_update.go)
-*   [6.9/2: Sends a WINDOW_UPDATE frame with a flow control window increment of 0 on a stream](./harness/cases/6_9_window_update.go)
-*   [6.9/3: Sends a WINDOW_UPDATE frame with a length other than 4 octets](./harness/cases/6_9_window_update.go)
-*   [6.9.2/3: Sends a SETTINGS_INITIAL_WINDOW_SIZE settings with an exceeded maximum window size value](./harness/cases/6_9_2_initial_flow_control_window_size.go)
+**HPACK Compliance:**
+- `hpack/2.3.3/1`: Invalid index in header field representation
+- `hpack/4.2/1`: Maximum table size validation
+- `hpack/6.1/1`: Indexed header field processing
 
-### Section 6.10: CONTINUATION
+**Frame Size & Format:**
+- `4.2/2`: Oversized DATA frame (expects FRAME_SIZE_ERROR)
+- `4.2/3`: Oversized HEADERS frame (expects FRAME_SIZE_ERROR)
 
-*   [6.10/2: Sends a CONTINUATION frame followed by any frame other than CONTINUATION](./harness/cases/6_10_continuation.go)
-*   [6.10/3: Sends a CONTINUATION frame with 0x0 stream identifier](./harness/cases/6_10_continuation.go)
-*   [6.10/4: Sends a CONTINUATION frame preceded by a HEADERS frame with END_HEADERS flag](./harness/cases/6_10_continuation.go)
-*   [6.10/5: Sends a CONTINUATION frame preceded by a CONTINUATION frame with END_HEADERS flag](./harness/cases/6_10_continuation.go)
-*   [6.10/6: Sends a CONTINUATION frame preceded by a DATA frame](./harness/cases/6_10_continuation.go)
+**Stream Management:**
+- `5.1/12`: HEADERS frame on closed stream (expects STREAM_CLOSED)
+- `5.3.1/1`: Self-dependency in stream priority (expects PROTOCOL_ERROR)
 
-### Section 8.1: HTTP Request/Response Exchange
-
-*   [8.1/1: Sends a second HEADERS frame without the END_STREAM flag](./harness/cases/8_1_http_request_response_exchange.go)
-*   [8.1.2/1: Sends a HEADERS frame that contains the header field name in uppercase letters](./harness/cases/8_1_2_http_header_fields.go)
-*   [8.1.2.1/1: Sends a HEADERS frame that contains a unknown pseudo-header field](./harness/cases/8_1_2_1_pseudo_header_fields.go)
-*   [8.1.2.1/2: Sends a HEADERS frame that contains the pseudo-header field defined for response](./harness/cases/8_1_2_1_pseudo_header_fields.go)
-*   [8.1.2.1/3: Sends a HEADERS frame that contains a pseudo-header field as trailers](./harness/cases/8_1_2_1_pseudo_header_fields.go)
-*   [8.1.2.1/4: Sends a HEADERS frame that contains a pseudo-header field that appears in a header block after a regular header field](./harness/cases/8_1_2_1_pseudo_header_fields.go)
-*   [8.1.2.2/1: Sends a HEADERS frame that contains the connection-specific header field](./harness/cases/8_1_2_2_connection_specific_header_fields.go)
-*   [8.1.2.2/2: Sends a HEADERS frame that contains the TE header field with any value other than "trailers"](./harness/cases/8_1_2_2_connection_specific_header_fields.go)
-*   [8.1.2.3/1: Sends a HEADERS frame with empty ":path" pseudo-header field](./harness/cases/8_1_2_3_request_pseudo_header_fields.go)
-*   [8.1.2.3/2: Sends a HEADERS frame that omits ":method" pseudo-header field](./harness/cases/8_1_2_3_request_pseudo_header_fields.go)
-*   [8.1.2.3/3: Sends a HEADERS frame that omits ":scheme" pseudo-header field](./harness/cases/8_1_2_3_request_pseudo_header_fields.go)
-*   [8.1.2.3/4: Sends a HEADERS frame that omits ":path" pseudo-header field](./harness/cases/8_1_2_3_request_pseudo_header_fields.go)
-*   [8.1.2.3/5: Sends a HEADERS frame with duplicated ":method" pseudo-header field](./harness/cases/8_1_2_3_request_pseudo_header_fields.go)
-*   [8.1.2.3/6: Sends a HEADERS frame with duplicated ":scheme" pseudo-header field](./harness/cases/8_1_2_3_request_pseudo_header_fields.go)
-*   [8.1.2.3/7: Sends a HEADERS frame with duplicated ":path" pseudo-header field](./harness/cases/8_1_2_3_request_pseudo_header_fields.go)
-*   [8.1.2.6/1: Sends a HEADERS frame with the "content-length" header field which does not equal the DATA frame payload length](./harness/cases/8_1_2_6_malformed_requests_and_responses.go)
-*   [8.1.2.6/2: Sends a HEADERS frame with the "content-length" header field which does not equal the sum of the multiple DATA frames payload length](./harness/cases/8_1_2_6_malformed_requests_and_responses.go)
-
-### Section 8.2: Server Push
-
-*   [8.2/1: Sends a PUSH_PROMISE frame](./harness/cases/8_2_server_push.go)
-
-### HPACK
-
-*   [hpack/2.3.3/1: Sends a indexed header field representation with invalid index](./harness/cases/hpack/2_3_3_index_address_space.go)
-*   [hpack/2.3.3/2: Sends a literal header field representation with invalid index](./harness/cases/hpack/2_3_3_index_address_space.go)
+For detailed test descriptions and expected behaviors, see the test case files in the `harness/cases/` directory.
