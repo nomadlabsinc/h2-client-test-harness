@@ -108,6 +108,8 @@ func handleConnection(conn net.Conn, testCase string) {
 		runTest6_5_2_4(conn, framer)
 	case "6.5.2/5":
 		runTest6_5_2_5(conn, framer)
+	case "6.5.3/2":
+		runTest6_5_3_2(conn, framer)
 	default:
 		log.Printf("Unknown or unimplemented test case: %s", testCase)
 	}
@@ -285,6 +287,41 @@ func runTest6_5_2_5(conn net.Conn, framer *http2.Framer) {
 		default:
 			// Ignore other frames like WINDOW_UPDATE, etc.
 			log.Printf("Ignoring frame of type %T while waiting for PING ACK.", f)
+		}
+	}
+}
+
+// Test Case 6.5.3/2: Sends a SETTINGS frame and expects an ACK.
+// The client is expected to immediately send a SETTINGS frame with the ACK flag.
+func runTest6_5_3_2(conn net.Conn, framer *http2.Framer) {
+	log.Println("Running test case 6.5.3/2...")
+
+	// Send a valid SETTINGS frame.
+	if err := framer.WriteSettings(http2.Setting{ID: http2.SettingEnablePush, Val: 0}); err != nil {
+		log.Printf("Failed to write SETTINGS frame: %v", err)
+		return
+	}
+	log.Println("Sent SETTINGS frame, awaiting ACK.")
+
+	// Expect a SETTINGS ACK in response.
+	for {
+		frame, err := framer.ReadFrame()
+		if err != nil {
+			log.Printf("Failed to read frame while waiting for SETTINGS ACK: %v", err)
+			return
+		}
+
+		switch f := frame.(type) {
+		case *http2.SettingsFrame:
+			if !f.IsAck() {
+				log.Println("Received a SETTINGS frame, but it was not an ACK.")
+				return
+			}
+			log.Println("Received SETTINGS ACK. Test complete.")
+			return // Success
+		default:
+			// Ignore other frames.
+			log.Printf("Ignoring frame of type %T while waiting for SETTINGS ACK.", f)
 		}
 	}
 }
