@@ -120,6 +120,8 @@ func handleConnection(conn net.Conn, testCase string) {
 		runTest6_7_4(conn, framer)
 	case "6.8/1":
 		runTest6_8_1(conn, framer)
+	case "6.9/1":
+		runTest6_9_1(conn, framer)
 	default:
 		log.Printf("Unknown or unimplemented test case: %s", testCase)
 	}
@@ -483,6 +485,19 @@ func runTest6_8_1(conn net.Conn, framer *http2.Framer) {
 	}
 
 	log.Println("Sent malformed GOAWAY frame with non-zero stream ID. Test complete.")
+}
+
+// Test Case 6.9/1: Sends a WINDOW_UPDATE frame with a flow-control window increment of 0.
+// The client is expected to detect a PROTOCOL_ERROR.
+func runTest6_9_1(conn net.Conn, framer *http2.Framer) {
+	log.Println("Running test case 6.9/1...")
+
+	if err := framer.WriteWindowUpdate(0, 0); err != nil {
+		log.Printf("Failed to write WINDOW_UPDATE frame: %v", err)
+		return
+	}
+
+	log.Println("Sent WINDOW_UPDATE with 0 increment. Test complete.")
 }
 
 // ensureCerts checks for cert.pem and key.pem and generates them if they don't exist.
