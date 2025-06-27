@@ -14,6 +14,14 @@ type TestFunc func(conn net.Conn, framer *http2.Framer)
 var testRegistry = make(map[string]TestFunc)
 
 func init() {
+	// Generic tests
+	testRegistry["generic/3.1/1"] = cases.RunTestGeneric3_1_1
+	testRegistry["generic/3.1/2"] = cases.RunTestGeneric3_1_2
+	testRegistry["generic/3.1/3"] = cases.RunTestGeneric3_1_3
+	testRegistry["generic/3.2/1"] = cases.RunTestGeneric3_2_1
+	testRegistry["generic/3.2/2"] = cases.RunTestGeneric3_2_2
+	testRegistry["generic/3.2/3"] = cases.RunTestGeneric3_2_3
+
 	// 3.5 Connection Preface
 	testRegistry["3.5/1"] = cases.RunTest3_5_1
 	testRegistry["3.5/2"] = cases.RunTest3_5_2
@@ -42,6 +50,21 @@ func init() {
 	testRegistry["5.1/11"] = cases.RunTest5_1_11
 	testRegistry["5.1/12"] = cases.RunTest5_1_12
 	testRegistry["5.1/13"] = cases.RunTest5_1_13
+
+	// 5.1.1 Stream Identifiers
+	testRegistry["5.1.1/1"] = cases.RunTest5_1_1_1
+	testRegistry["5.1.1/2"] = cases.RunTest5_1_1_2
+
+	// 5.1.2 Stream Concurrency
+	testRegistry["5.1.2/1"] = cases.RunTest5_1_2_1
+
+	// 5.3.1 Stream Dependencies
+	testRegistry["5.3.1/1"] = cases.RunTest5_3_1_1
+	testRegistry["5.3.1/2"] = cases.RunTest5_3_1_2
+
+	// 5.4.1 Connection Error Handling
+	testRegistry["5.4.1/1"] = cases.RunTest5_4_1_1
+	testRegistry["5.4.1/2"] = cases.RunTest5_4_1_2
 
 	// 6.1 DATA
 	testRegistry["6.1/1"] = cases.RunTest6_1_1
@@ -145,6 +168,7 @@ func init() {
 	testRegistry["hpack/5.2/2"] = cases.RunTestHpack5_2_2
 	testRegistry["hpack/5.2/3"] = cases.RunTestHpack5_2_3
 	testRegistry["hpack/6.1/1"] = cases.RunTestHpack6_1_1
+	testRegistry["hpack/6.3/1"] = cases.RunTestHpack6_3_1
 }
 
 func GetTest(id string) (TestFunc, bool) {

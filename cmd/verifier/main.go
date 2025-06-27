@@ -7,6 +7,7 @@ import (
 	"os"
 
 	"github.com/nomadlabsinc/h2-client-test-harness/verifier"
+	_ "github.com/nomadlabsinc/h2-client-test-harness/verifier/cases/generic"
 	_ "github.com/nomadlabsinc/h2-client-test-harness/verifier/cases/hpack"
 	_ "github.com/nomadlabsinc/h2-client-test-harness/verifier/cases/http2"
 )
