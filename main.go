@@ -116,6 +116,8 @@ func handleConnection(conn net.Conn, testCase string) {
 		runTest6_7_2(conn, framer)
 	case "6.7/3":
 		runTest6_7_3(conn, framer)
+	case "6.7/4":
+		runTest6_7_4(conn, framer)
 	default:
 		log.Printf("Unknown or unimplemented test case: %s", testCase)
 	}
@@ -434,6 +436,28 @@ func runTest6_7_3(conn net.Conn, framer *http2.Framer) {
 	}
 
 	log.Println("Sent malformed PING frame with non-zero stream ID. Test complete.")
+}
+
+// Test Case 6.7/4: Sends a PING frame with a length other than 8.
+// The client is expected to detect a FRAME_SIZE_ERROR.
+func runTest6_7_4(conn net.Conn, framer *http2.Framer) {
+	log.Println("Running test case 6.7/4...")
+
+	// Frame Header: Length (6), Type (PING), Flags (0), StreamID (0)
+	malformedFrame := []byte{
+		0x00, 0x00, 0x06, // Length: 6
+		0x06,             // Type: PING (0x6)
+		0x00,             // Flags: 0
+		0x00, 0x00, 0x00, 0x00, // Stream ID: 0
+		0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // Payload
+	}
+
+	if _, err := conn.Write(malformedFrame); err != nil {
+		log.Printf("Failed to write malformed PING frame: %v", err)
+		return
+	}
+
+	log.Println("Sent malformed PING frame with invalid length. Test complete.")
 }
 
 // ensureCerts checks for cert.pem and key.pem and generates them if they don't exist.
