@@ -28,3 +28,18 @@ This file lists `h2spec` test cases that have not been implemented in the Go tes
 
 - [ ] **7/2: Sends a RST_STREAM frame with unknown error code**
   - **Reason:** Similar to the `GOAWAY` test above, this test has ambiguous success conditions that are difficult to distinguish with a simple client like `curl`.
+
+- [ ] **generic/2/1: Sends a PRIORITY frame on idle stream**
+  - **Reason:** This test requires the client to correctly handle a `PRIORITY` frame on an idle stream. `curl` does not provide a way to verify that the `PRIORITY` frame was received and processed correctly.
+
+- [ ] **generic/2/2: Sends a WINDOW_UPDATE frame on half-closed (remote) stream**
+  - **Reason:** This test requires the client to be in a half-closed (remote) state, which is not easily achievable or verifiable with `curl`.
+
+- [ ] **generic/2/3: Sends a PRIORITY frame on half-closed (remote) stream**
+  - **Reason:** This test requires the client to be in a half-closed (remote) state, which is not easily achievable or verifiable with `curl`.
+
+- [ ] **generic/2/4: Sends a RST_STREAM frame on half-closed (remote) stream**
+  - **Reason:** This test requires the client to be in a half-closed (remote) state, which is not easily achievable or verifiable with `curl`.
+
+- [ ] **generic/2/5: Sends a PRIORITY frame on closed stream**
+  - **Reason:** This test requires the client to have a closed stream, and then correctly handle a `PRIORITY` frame on that stream. This is not easily verifiable with `curl`.
