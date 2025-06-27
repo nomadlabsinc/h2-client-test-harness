@@ -22,3 +22,9 @@ This file lists `h2spec` test cases that have not been implemented in the Go tes
 
 - [ ] **6.10/1: Sends multiple CONTINUATION frames preceded by a HEADERS frame**
   - **Reason:** This test requires the client to successfully parse a fragmented header block. `curl` does not provide a direct way to verify that the headers were received and parsed correctly, only that the request as a whole succeeded or failed.
+
+- [ ] **7/1: Sends a GOAWAY frame with unknown error code**
+  - **Reason:** This test expects the client to either gracefully close the connection or ignore the frame. `curl` will likely just close the connection, which is a valid outcome. However, we cannot distinguish this from a crash or other incorrect behavior. A more sophisticated client with introspection capabilities is needed to verify this test.
+
+- [ ] **7/2: Sends a RST_STREAM frame with unknown error code**
+  - **Reason:** Similar to the `GOAWAY` test above, this test has ambiguous success conditions that are difficult to distinguish with a simple client like `curl`.
