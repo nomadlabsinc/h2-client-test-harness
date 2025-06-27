@@ -58,3 +58,18 @@ This file lists `h2spec` test cases that have not been implemented in the Go tes
 
 - [ ] **generic/3.2/3: Sends a HEADERS frame with priority**
   - **Reason:** This test requires the client to correctly handle a `HEADERS` frame with priority information. `curl` does not provide a way to verify that the priority information was correctly handled.
+
+- [ ] **generic/3.3/1: Sends a PRIORITY frame with priority 1**
+  - **Reason:** This test requires the client to correctly handle a `PRIORITY` frame. `curl` does not provide a way to verify that the priority information was correctly handled.
+
+- [ ] **generic/3.3/2: Sends a PRIORITY frame with priority 256**
+  - **Reason:** This test requires the client to correctly handle a `PRIORITY` frame. `curl` does not provide a way to verify that the priority information was correctly handled.
+
+- [ ] **generic/3.3/3: Sends a PRIORITY frame with stream dependency**
+  - **Reason:** This test requires the client to correctly handle a `PRIORITY` frame with stream dependency. `curl` does not provide a way to verify that the priority information was correctly handled.
+
+- [ ] **generic/3.3/4: Sends a PRIORITY frame with exclusive**
+  - **Reason:** This test requires the client to correctly handle a `PRIORITY` frame with the exclusive flag. `curl` does not provide a way to verify that the priority information was correctly handled.
+
+- [ ] **generic/3.3/5: Sends a PRIORITY frame for an idle stream, then send a HEADER frame for a lower stream ID**
+  - **Reason:** This test requires the client to correctly handle a `PRIORITY` frame on an idle stream. `curl` does not provide a way to verify that the priority information was correctly handled.
