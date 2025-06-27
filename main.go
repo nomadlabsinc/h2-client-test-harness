@@ -102,6 +102,8 @@ func handleConnection(conn net.Conn, testCase string) {
 		runTest6_5_2_1(conn, framer)
 	case "6.5.2/2":
 		runTest6_5_2_2(conn, framer)
+	case "6.5.2/3":
+		runTest6_5_2_3(conn, framer)
 	default:
 		log.Printf("Unknown or unimplemented test case: %s", testCase)
 	}
@@ -207,6 +209,19 @@ func runTest6_5_2_2(conn net.Conn, framer *http2.Framer) {
 	}
 
 	log.Println("Sent SETTINGS_INITIAL_WINDOW_SIZE with invalid value. Test complete.")
+}
+
+// Test Case 6.5.2/3: Sends SETTINGS_MAX_FRAME_SIZE with a value < 16384.
+// The client is expected to detect a PROTOCOL_ERROR.
+func runTest6_5_2_3(conn net.Conn, framer *http2.Framer) {
+	log.Println("Running test case 6.5.2/3...")
+
+	if err := framer.WriteSettings(http2.Setting{ID: http2.SettingMaxFrameSize, Val: 16383}); err != nil {
+		log.Printf("Failed to write SETTINGS frame: %v", err)
+		return
+	}
+
+	log.Println("Sent SETTINGS_MAX_FRAME_SIZE with invalid value. Test complete.")
 }
 
 // ensureCerts checks for cert.pem and key.pem and generates them if they don't exist.
