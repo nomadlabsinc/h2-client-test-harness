@@ -50,6 +50,35 @@ func init() {
 	testRegistry["6.10/4"] = cases.RunTest6_10_4
 	testRegistry["6.10/5"] = cases.RunTest6_10_5
 	testRegistry["6.10/6"] = cases.RunTest6_10_6
+
+	// 8.1 HTTP Request/Response Exchange
+	testRegistry["8.1/1"] = cases.RunTest8_1_1
+
+	// 8.1.2 HTTP Header Fields
+	testRegistry["8.1.2/1"] = cases.RunTest8_1_2_1
+
+	// 8.1.2.1 Pseudo-Header Fields
+	testRegistry["8.1.2.1/1"] = cases.RunTest8_1_2_1_1
+	testRegistry["8.1.2.1/2"] = cases.RunTest8_1_2_1_2
+	testRegistry["8.1.2.1/3"] = cases.RunTest8_1_2_1_3
+	testRegistry["8.1.2.1/4"] = cases.RunTest8_1_2_1_4
+
+	// 8.1.2.2 Connection-Specific Header Fields
+	testRegistry["8.1.2.2/1"] = cases.RunTest8_1_2_2_1
+	testRegistry["8.1.2.2/2"] = cases.RunTest8_1_2_2_2
+
+	// 8.1.2.3 Request Pseudo-Header Fields
+	testRegistry["8.1.2.3/1"] = cases.RunTest8_1_2_3_1
+	testRegistry["8.1.2.3/2"] = cases.RunTest8_1_2_3_2
+	testRegistry["8.1.2.3/3"] = cases.RunTest8_1_2_3_3
+	testRegistry["8.1.2.3/4"] = cases.RunTest8_1_2_3_4
+	testRegistry["8.1.2.3/5"] = cases.RunTest8_1_2_3_5
+	testRegistry["8.1.2.3/6"] = cases.RunTest8_1_2_3_6
+	testRegistry["8.1.2.3/7"] = cases.RunTest8_1_2_3_7
+
+	// 8.1.2.6 Malformed Requests and Responses
+	testRegistry["8.1.2.6/1"] = cases.RunTest8_1_2_6_1
+	testRegistry["8.1.2.6/2"] = cases.RunTest8_1_2_6_2
 }
 
 func GetTest(id string) (TestFunc, bool) {
