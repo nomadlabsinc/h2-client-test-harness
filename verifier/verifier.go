@@ -57,7 +57,7 @@ func newClient() *http.Client {
 // tests that should cause a connection-level error.
 func ExpectConnectionError(expectedErrors ...string) error {
 	client := newClient()
-	_, err := client.Get("https://localhost:8080")
+	_, err := client.Get("https://127.0.0.1:8080")
 	if err == nil {
 		return fmt.Errorf("expected a connection error, but got none")
 	}
@@ -76,7 +76,7 @@ func ExpectConnectionError(expectedErrors ...string) error {
 // error is a stream error of the expected type.
 func ExpectStreamError(expectedCode http2.ErrCode) error {
 	client := newClient()
-	resp, err := client.Get("https://localhost:8080")
+	resp, err := client.Get("https://127.0.0.1:8080")
 	if err == nil {
 		// The stream might have been reset after the response headers were received.
 		// In this case, reading the body will expose the error.
@@ -102,7 +102,7 @@ func ExpectStreamError(expectedCode http2.ErrCode) error {
 // the connection open.
 func ExpectSuccessfulRequest() error {
 	client := newClient()
-	resp, err := client.Get("https://localhost:8080")
+	resp, err := client.Get("https://127.0.0.1:8080")
 	if err != nil {
 		return fmt.Errorf("expected a successful request, but got an error: %v", err)
 	}

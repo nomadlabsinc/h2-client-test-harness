@@ -11,16 +11,20 @@ RUN apk add --no-cache openssl
 COPY go.mod go.sum ./
 RUN go mod download
 
+# Copy the test runner script first
+COPY test-runner.sh /test-runner.sh
+RUN chmod +x /test-runner.sh
+
 # Copy the local package source code to the container
 COPY . .
 
-# Build the Go app
-RUN go build -o /h2-client-test-harness
+# Build both the harness and verifier
+RUN go build -o /h2-client-test-harness main.go
+RUN go build -o /h2-verifier cmd/verifier/main.go
 
 # Expose port 8080 to the outside world
 EXPOSE 8080
 
 # The command to run when the container starts.
-# The test case will be passed as an argument to `docker run`.
-ENTRYPOINT ["/h2-client-test-harness"]
+ENTRYPOINT ["/test-runner.sh"]
 CMD ["--help"]
