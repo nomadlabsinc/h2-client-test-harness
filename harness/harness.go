@@ -25,6 +25,10 @@ func init() {
 	testRegistry["6.2/3"] = cases.RunTest6_2_3
 	testRegistry["6.2/4"] = cases.RunTest6_2_4
 
+	// 6.3 PRIORITY
+	testRegistry["6.3/1"] = cases.RunTest6_3_1
+	testRegistry["6.3/2"] = cases.RunTest6_3_2
+
 	// 6.5 SETTINGS
 	testRegistry["6.5/1"] = cases.RunTest6_5_1
 	testRegistry["6.5/2"] = cases.RunTest6_5_2
